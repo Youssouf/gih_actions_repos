@@ -1,7 +1,7 @@
 name: "Test Project"
 on: push
 jobs:
-  test:
+  dev:
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -11,7 +11,8 @@ jobs:
         with: 
           node-version: '18'
  
-  deploy:
+  test:
+    needs: dev
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -22,6 +23,7 @@ jobs:
           node-version: '18'
   
   prod:
+    needs: [test, dev]
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
